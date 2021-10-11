@@ -3,8 +3,8 @@ const path = require("path");
 const app = express();
 
 const mainRouter = require("./routes/mainRouter");
-
-
+const moviesRouter = require("./routes/moviesRouter")
+const usersRouter = require("./routes/usersRouter")
 
 // ************ Servidor ************
 
@@ -15,4 +15,6 @@ app.listen(app.get("port"), () => console.log("Server start in http://localhost:
 app.set("view engine", "ejs");
 
 app.use(mainRouter);
+app.use("/movies", moviesRouter);
+app.use("/users", usersRouter);
 
