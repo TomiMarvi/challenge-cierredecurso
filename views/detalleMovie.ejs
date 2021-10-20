@@ -4,10 +4,48 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle de pelicula</title>
+    <title>Detalle de <%= pelicula.title %> </title>
 </head>
 <body>
-    <h1>Hola bienvenido a la informacion General</h1>
+    <% if (user != null) { %>
+        <h3>Hola <%= user.name %>!</h3>
+        <button><a href="/usuario/cerrarSesion">Cerrar Sesión</a></button>
+    <% } %>
+    <button><a href="/">Volver al inicio</a></button>
+    <h1>Toda nuestra información de <%= pelicula.title %></h1>
+    <h3>TITULO: <%= pelicula.title %></h3>
+    <h3>RATING: <%= pelicula.rating %></h3>
+    <h3>PREMIOS: <%= pelicula.awards %></h3>
+    <h3>FECHA DE ESTRENO: <%= pelicula.release_date %></h3>
+    <h3>DURACIÓN: <% if (pelicula.length == null) { %>
+        esta pelicula aún no tiene duración 
+    <% } else { %>
+        <%= pelicula.length %> 
+    <% } %></h3>
+    <h3>GENERO: <% if (pelicula.genre == null) { %>
+        esta pelicula aún no tiene genero 
+    <% } else { %>
+        <%= pelicula.genre.name %> 
+    <% } %></h3>
+    <h3>REPARTO:</h3>
+    <% if (pelicula.actors != null) { %> 
+        <ul>
+            <% pelicula.actors.forEach(actor => { %>
+                <li>
+                    <%= actor.first_name + " " + actor.last_name %>
+                </li>
+            <% }) %>
+        </ul>
+    <% } else { %>
+        <h3>pelicula aún no tiene reparto</h3> 
+    <% } %>
+    <br>
+    <% if (user != null && user.admin == 1) { %>
+        <button><a href="/pelicula/editar/<%= pelicula.id %>">Editar pelicula</a></button>
+        <form action="/pelicula/borrar/<%= pelicula.id %>?_method=DELETE" method="POST">
+            <button type="submit">Borrar pelicula</button>
+        </form>
+    <% } %>
     
 </body>
 </html>

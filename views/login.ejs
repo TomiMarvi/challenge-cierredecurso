@@ -4,23 +4,44 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ingreso</title>
+    <style>
+        .text-danger{
+            color: orange;
+        }
+    </style>
+    <title>Ingresar</title>
 </head>
 <body>
-    <main>
-        <form action="/users/access" method="POST">
-            <fieldset>
-                <label for="email">Direccion de correo electronico</label>
-                <input type="text" placeholder="E-mail" name="correo">
-            </fieldset>
-            <fieldset>
-                <label for="clave">Contraseña</label>
-                <input type="password" placeholder="Contraseña" name="clave">
-            </fieldset>
-            <fieldset>
-                <button type="submit">Iniciar sesión</button>
-            </fieldset>
-        </form>
-    </main>
-    </body>
+    <h1>Ingrese a su cuenta:</h1>
+    <br>
+    <form action="/usuario/acceder" method="POST">
+        <fieldset>
+            <label for="correo">Correo Electronico:</label>
+            <input type="text" name="correo" placeholder="example@mail.com"
+            value="<%= locals.oldData ? oldData.correo : null %> ">
+            <% if (locals.errors && errors.correo) { %>
+                <div class="text-danger">
+                    <%= errors.correo.msg %> 
+                </div>
+            <% } %>
+        </fieldset>
+        <fieldset>
+            <label for="contraseña">Contraseña:</label>
+            <input type="password" name="clave">
+            <% if (locals.errors && errors.clave) { %>
+                <div class="text-danger">
+                    <%= errors.clave.msg %> 
+                </div>
+            <% } %>
+        </fieldset>
+        <fieldset>
+            <p>¿No estas registrado con nosotros?</p>
+            <p>Unite <a href="/usuario/registrarse">aca</i></a></p>
+        </fieldset>
+        <fieldset>
+            <button type="submit">Ingresar</button>
+            <button type="reset">Resetear</button>
+        </fieldset>
+    </form>
+</body>
 </html>

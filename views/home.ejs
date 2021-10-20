@@ -4,14 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home de peliculas</title>
+    <title>Inicio</title>
 </head>
 <body>
-
-<h1>Nuestros Flicks</h1>
-    <h2>Nombre de pelicula</h2>
-    <fieldset>
-        <button><a href="/movies/detallePelicula">Informacion General</a></button>
-    </fieldset>
+    <h1>Bienvenidos a Peliculones!</h1>
+    <br>
+    <% if (user != null) { %>
+        <h3>Hola <%= user.name %>!</h3>
+        <button><a href="/usuario/cerrarSesion">Cerrar Sesión</a></button>
+    <% }else{ %>
+        <button><a href="/usuario/ingresar">Ingresar</a></button>
+        <button><a href="/usuario/registrarse">Registrarse</a></button>
+    <% } %>
+    <br>
+    <h2>Nuestra catalogo de peliculas:</h2>
+    <% if (user != null && user.admin == 1) { %>
+        <button><a href="pelicula/crear">Añadir pelicula</a></button>
+    <% } %>
+    <br>
+    <ul>
+        <% peliculas.forEach(pelicula => { %>
+            <li><a href="/pelicula/detalle/<%= pelicula.id %>"><%= pelicula.title %></a></li>
+            <% }) %>
+    </ul>
 </body>
 </html>

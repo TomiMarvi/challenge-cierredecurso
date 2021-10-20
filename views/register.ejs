@@ -4,27 +4,59 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro</title>
+    <style>
+        .text-danger{
+            color: orange;
+        }
+    </style>
+    <title>Registrarse</title>
 </head>
 <body>
-    <main>
-        <form action="/users/save" method="POST">
-            <fieldset>
-                <label for="nombre">Nombre Completo</label>
-                <input type="text" placeholder="Nombre Completo" name="nombre">
-            </fieldset>
-            <fieldset>
-                <label for="email">Direccion de correo electronico</label>
-                <input type="text" placeholder="E-mail" name="correo">
-            </fieldset>
-            <fieldset>
-                <label for="clave">Contraseña</label>
-                <input type="password" placeholder="Contraseña" name="clave">
-            </fieldset>
-            <fieldset>
-                <button type="submit">Registrarse</button>
-            </fieldset>
-        </form>
-    </main>
+    <h1>Formulario de registro:</h1>
+    <br>
+    <form action="/usuario/guardar" method="POST">
+        <fieldset>
+            <label for="nombreCompleto">Nombre Completo:</label>
+            <input type="text" name="nombre" placeholder="Jaime Fulanito"
+            value="<%= locals.oldData ? oldData.nombre : null %> ">
+            <% if (locals.errors && errors.nombre) { %>
+                <div class="text-danger">
+                    <%= errors.nombre.msg %> 
+                </div>
+            <% } %>
+        </fieldset>
+        <fieldset>
+            <label for="correo">Correo Electronico:</label>
+            <input type="text" name="correo" placeholder="example@mail.com"
+            value="<%= locals.oldData ? oldData.correo : null %> ">
+            <% if (locals.errors && errors.correo) { %>
+                <div class="text-danger">
+                    <%= errors.correo.msg %> 
+                </div>
+            <% } %>
+        </fieldset>
+        <fieldset>
+            <label for="contraseña">Contraseña:</label>
+            <input type="password" name="clave">
+            <% if (locals.errors && errors.clave) { %>
+                <div class="text-danger">
+                    <%= errors.clave.msg %> 
+                </div>
+            <% } %>
+        </fieldset>
+        <fieldset>
+            <label for="confirmarContraseña">Confirmar Contraseña:</label>
+            <input type="password" name="confirmarClave">
+            <% if (locals.errors && errors.confirmarClave) { %>
+                <div class="text-danger">
+                    <%= errors.confirmarClave.msg %> 
+                </div>
+            <% } %>
+        </fieldset>
+        <fieldset>
+            <button type="submit">Registrarse</button>
+            <button type="reset">Resetear</button>
+        </fieldset>
+    </form>
 </body>
 </html>

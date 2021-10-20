@@ -3,10 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editor de pelicula</title>
+    <meta name="viewport" content="width=h1, initial-scale=1.0">
+    <style>
+        .text-danger{
+            color:orange;
+        }
+    </style>
+    <title>Editar <%= pelicula.title %></title>
 </head>
 <body>
-    
+    <h1>Formulario de edicion de pelicula</h1>
+    <br>
+    <form action="/pelicula/actualizar/<%= pelicula.id %>?_method=PUT" method="POST">
+        <fieldset>
+            <label for="titulo">Titulo:</label>
+            <input type="text" name="titulo"
+            value="<%= locals.oldData ? oldData.titulo : null %> ">
+            <% if (locals.errors && errors.titulo) { %>
+                <div class="text-danger">
+                    <%= errors.titulo.msg %> 
+                </div>
+            <% } %>
+        </fieldset>
+        <fieldset>
+            <label for="rating">Rating:</label>
+            <input type="number" name="rating"
+            value="<%= locals.oldData ? oldData.rating : null %> ">
+            <% if (locals.errors && errors.rating) { %>
+                <div class="text-danger">
+                    <%= errors.rating.msg %> 
+                </div>
+            <% } %>
+        </fieldset>
+        <fieldset>
+            <label for="premios">Premios:</label>
+            <input type="number" name="premios"
+            value="<%= locals.oldData ? oldData.premios : null %> ">
+            <% if (locals.errors && errors.premios) { %>
+                <div class="text-danger">
+                    <%= errors.premios.msg %> 
+                </div>
+            <% } %>
+        </fieldset>
+        <fieldset>
+            <label for="fechaDeEstreno">Fecha de estreno:</label>
+            <input type="date" name="fechaDeEstreno"
+            value="<%= locals.oldData ? oldData.fechaDeEstreno : null %> ">
+            <% if (locals.errors && errors.fechaDeEstreno) { %>
+                <div class="text-danger">
+                    <%= errors.fechaDeEstreno.msg %> 
+                </div>
+            <% } %>
+        </fieldset>
+        <fieldset>
+            <label for="duracion">Duracion de la pelicula (en minutos):</label>
+            <input type="number" name="duracion"
+            value="<%= locals.oldData ? oldData.duracion : null %> ">
+            <% if (locals.errors && errors.duracion) { %>
+                <div class="text-danger">
+                    <%= errors.duracion.msg %> 
+                </div>
+            <% } %>
+        </fieldset>
+        <fieldset>
+            <label for="genero">Genero:</label>
+            <% generos.forEach(genero => { %>
+                <input type= "radio" name="genero" value="<%= genero.id %>"
+                <%= locals.oldData && (genero === oldData.genero) ? 'selected' : null %> ><%= genero.name %>
+            <% }) %>
+        </fieldset>
+        <fieldset>
+            <label for="actores">Reparto:</label>
+            <br>
+            <% actores.forEach(actor => { %>
+                <input type= "checkbox" name="actores" value="<%= actor.id%>"
+                <%= locals.oldData && (actor === oldData.actores) ? 'selected' : null %>><%= actor.first_name + " " + actor.last_name %>
+                <br>
+            <% }) %>
+        </fieldset>
+            <button type="submit">Editar</button>
+            <button type="reset">Resetear</button>
+        </fieldset>
+    </form>
 </body>
 </html>

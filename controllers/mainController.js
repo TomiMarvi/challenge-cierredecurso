@@ -1,5 +1,9 @@
+const db = require("../database/models");
+
 module.exports = {
-    home:(req,res)=>{
-        return res.render("home")
+    index: async (req,res) => {
+        let peliculas = await db.Movie.findAll();
+
+        return res.render("home", { peliculas })
     }
-};
+}
